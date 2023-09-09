@@ -7,7 +7,7 @@ export const Loader = () =>{
                 <Image fill alt="loader" src="/infinite-loader.gif" />
             </div>
             <p className="text-sm text-muted-foreground" >
-                Everything is thinking...
+                Infinity is thinking...
             </p>
         </div>
     )

@@ -65,7 +65,7 @@ const Sidebar = () => {
           <div className="relative w-8 h-8 mr-4">
             <Image fill alt="logo" src="/logo.png" />
           </div>
-          <h1 className={cn("text-2xl font-bold", montserrat.className)}>Everything AI</h1>
+          <h1 className={cn("text-2xl font-bold", montserrat.className)}>Infinity AI</h1>
         </Link>
         <div className="space-y-1">
           {routes.map((route)=>(
