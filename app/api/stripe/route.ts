@@ -1,8 +1,9 @@
+import { auth, currentUser } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
+
 import prismadb from "@/lib/prismadb";
 import { stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
-import { auth, currentUser } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
 
 const settingsUrl = absoluteUrl("/settings");
 
@@ -15,14 +16,14 @@ export async function GET() {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const userSubscription = await prismadb.userSubscription.findUnique({
+    const userSubscription = await prismadb?.userSubscription?.findUnique({
       where: {
         userId,
       },
     });
 
     if (userSubscription && userSubscription.stripeCustomerId) {
-      const stripeSession = await stripe.billingPortal.sessions.create({
+      const stripeSession = await stripe.billingPortal.sessions?.create({
         customer: userSubscription.stripeCustomerId,
         return_url: settingsUrl,
       });
@@ -30,7 +31,7 @@ export async function GET() {
       return new NextResponse(JSON.stringify({ url: stripeSession.url }));
     }
 
-    const stripeSession = await stripe.checkout.sessions.create({
+    const stripeSession = await stripe.checkout.sessions?.create({
       success_url: settingsUrl,
       cancel_url: settingsUrl,
       payment_method_types: ["card"],
@@ -40,7 +41,7 @@ export async function GET() {
       line_items: [
         {
           price_data: {
-            currency: "INR",
+            currency: "USD",
             product_data: {
               name: "Infinity Pro",
               description: "Unlimited AI Generations",
@@ -61,6 +62,6 @@ export async function GET() {
     return new NextResponse(JSON.stringify({ url: stripeSession.url }));
   } catch (error) {
     console.log("[STRIPE_ERROR]", error);
-    return new NextResponse("Internal error", { status: 500 });
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }

@@ -31,7 +31,7 @@ export async function POST(req: Request) {
       return new NextResponse("User id is required", { status: 400 });
     }
 
-    await prismadb.userSubscription.create({
+    await prismadb.userSubscription?.create({
       data: {
         userId: session?.metadata?.userId,
         stripeSubscriptionId: subscription.id,
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     const subscription = await stripe.subscriptions.retrieve(
       session.subscription as string
     );
-    await prismadb.userSubscription.update({
+    await prismadb.userSubscription?.update({
       where: {
         stripeSubscriptionId: subscription.id,
       },
