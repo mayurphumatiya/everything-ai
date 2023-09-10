@@ -21,6 +21,12 @@ const testimonials = [
     title: "Software Engineer",
     description: "This is the best AI tool I've used!",
   },
+  {
+    name: "Mayur",
+    avatar: "M",
+    title: "Software Engineer",
+    description: "This is the best AI tool I've used!",
+  },
 ];
 
 export const LandingContent = () => {
